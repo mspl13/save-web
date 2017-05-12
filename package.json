@@ -1,0 +1,31 @@
+{
+  "name": "save-web",
+  "version": "0.0.1",
+  "description": "A Web app for saving links to articles etc. on the go so you can read them later.",
+  "main": "index.js",
+  "repository": "https://github.com/mspl13/save-web",
+  "author": "mspl13",
+  "license": "MIT",
+  "scripts": {
+    "start": "node_modules/.bin/webpack-dev-server --config webpack.conf.js --content-base ./dist",
+    "build": "node_modules/.bin/webpack --config webpack.conf.js",
+    "build:prod": "node_modules/.bin/webpack --config webpack.conf.js -p"
+  },
+  "dependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^0.28.1",
+    "eslint": "^3.19.0",
+    "file-loader": "^0.11.1",
+    "getignore": "^1.0.0-beta.4",
+    "node-sass": "^4.5.2",
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.17.0",
+    "vue": "^2.3.3",
+    "vue-loader": "^12.0.3",
+    "vue-template-compiler": "^2.3.3",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5"
+  }
+}

@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <!-- meta tags -->
+    <meta charset="utf-8">
+    <meta content="
+        width=device-width,
+        initial-scale=1.0,
+        minimum-scale=1.0,
+        maximum-scale=1.0,
+        user-scalable=no" name="viewport">
+
+    <title>Save for Web</title>
+  </head>
+  <body>
+    <div id="new-link">
+      <saw-new-link></saw-new-link>
+    </div>
+    <div id="link-list">
+      <ul v-if="items.length">
+        <saw-link-element
+          v-for="(item, i) in items"
+          :key="item.id"
+          :linkitem="item">
+        </saw-link-element>
+      </ul>
+    </div>
+    <script type="text/javascript" src="bundle.js"></script>
+  </body>
+</html>
+
