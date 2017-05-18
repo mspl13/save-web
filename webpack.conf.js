@@ -1,10 +1,14 @@
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
-  entry: "./src/app/index.js",
+  entry: {
+    vendor: ["vue"],
+    app: "./src/app/index.js"
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js"
+    filename: "[name].js"
   },
   module: {
     rules: [
@@ -45,5 +49,11 @@ module.exports = {
       }
     ]
   },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "vendor",
+      minChunks: Infinity
+    })
+  ],
   resolve: {alias: {"vue$": "vue/dist/vue.js"}}
 };
