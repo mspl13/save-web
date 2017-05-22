@@ -1,3 +1,5 @@
+// TODO: refactor wrapper, they all use a lot of common code
+
 /**
  * A simple http get request wrapper. Enables usage of authentication.
  * http://stackoverflow.com/a/4033310/2952875
@@ -48,12 +50,42 @@ export function httpPostAsync(url, username, password, linkObject, cb) {
 
   xmlHttp.open("POST", url, true);
 
-  //Send the proper header information along with the request
+  // Send the proper header information along with the request
   xmlHttp.setRequestHeader("Content-type", "application/json");
+  // Set authorization header with username and password
   xmlHttp.setRequestHeader(
     "Authorization",
     "Basic " + btoa(username + ":" + password)
   );
 
   xmlHttp.send(linkObject);
+}
+
+/**
+ * A simple http delete request wrapper. Enables usage of authentication.
+ * 
+ * @param {url}
+ * @param {username}
+ * @param {password}
+ * @param {linkId}
+ * @param {cb}
+ */
+export function httpDeleteAsync(url, username, password, linkId, cb) {
+  const xmlHttp = new XMLHttpRequest();
+
+  xmlHttp.onreadystatechange = () => {
+    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+      cb(JSON.parse(xmlHttp.responseText));
+    }
+  };
+
+  xmlHttp.open("DELETE", url + "/" + linkId, true);
+
+  // Set authorization header with username and password
+  xmlHttp.setRequestHeader(
+    "Authorization",
+    "Basic " + btoa(username + ":" + password)
+  );
+
+  xmlHttp.send(null);
 }
