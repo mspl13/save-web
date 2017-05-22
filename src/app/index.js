@@ -18,7 +18,7 @@ import {
 /**
  * The element for a new link and it's annotation.
  */
-// eslint-disable-next-line no-unused-var
+// eslint-disable-next-line no-unused-vars
 const newLink = new Vue({
   el: "#new-link",
   components: {"saw-new-link": NewLink}
