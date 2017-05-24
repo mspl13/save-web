@@ -36,10 +36,10 @@ export function httpGetAsync(url, username, password, cb) {
  * @param {url}
  * @param {username}
  * @param {password}
- * @param {linkObject}
+ * @param {payload}
  * @param {cb}
  */
-export function httpPostAsync(url, username, password, linkObject, cb) {
+export function httpPostAsync(url, username, password, payload, cb) {
   const xmlHttp = new XMLHttpRequest();
 
   xmlHttp.onreadystatechange = () => {
@@ -58,7 +58,7 @@ export function httpPostAsync(url, username, password, linkObject, cb) {
     "Basic " + btoa(username + ":" + password)
   );
 
-  xmlHttp.send(linkObject);
+  xmlHttp.send(payload);
 }
 
 /**

@@ -10,4 +10,5 @@ export const serverPassword = "foobar";
 export const serverAddress = "http://127.0.0.1:1337";
 export const getListAddress = serverAddress + "/save/api/links";
 export const postLinkAddress = serverAddress + "/save/api/save";
-export const deleteLinkAdress = serverAddress + "/save/api/links";
+export const deleteLinkAddress = serverAddress + "/save/api/links";
+export const requestAuthTokenAddress = serverAddress + "/save/api/token";

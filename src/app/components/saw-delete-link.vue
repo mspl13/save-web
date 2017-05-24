@@ -7,7 +7,7 @@
   import {
     serverUsername,
     serverPassword,
-    deleteLinkAdress
+    deleteLinkAddress
   } from "./../config.js";
   import { linkList } from "./../index.js";
 
