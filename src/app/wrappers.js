@@ -9,7 +9,37 @@
  * @param {password}
  * @param {cb}
  */
-export function httpGetAsync(url, username, password, cb) {
+export function httpGetAsync(url, token, cb) {
+  const xmlHttp = new XMLHttpRequest();
+
+  // If the state of the request changes
+  xmlHttp.onreadystatechange = () => {
+    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+      cb(JSON.parse(xmlHttp.responseText));
+    }
+  };
+
+  xmlHttp.open("GET", url, true);
+
+  // Set authorization header with username and password
+  xmlHttp.setRequestHeader(
+    "Authorization",
+    "Basic " + btoa(token + ":" + "")
+  );
+
+  xmlHttp.send(null);
+}
+
+/**
+ * A simple http get request wrapper. Enables usage of authentication.
+ * http://stackoverflow.com/a/4033310/2952875
+ * 
+ * @param {url}
+ * @param {username}
+ * @param {password}
+ * @param {cb}
+ */
+export function httpLogin(url, username, password, cb) {
   const xmlHttp = new XMLHttpRequest();
 
   // If the state of the request changes
@@ -39,7 +69,7 @@ export function httpGetAsync(url, username, password, cb) {
  * @param {payload}
  * @param {cb}
  */
-export function httpPostAsync(url, username, password, payload, cb) {
+export function httpPostAsync(url, token, payload, cb) {
   const xmlHttp = new XMLHttpRequest();
 
   xmlHttp.onreadystatechange = () => {
@@ -55,7 +85,7 @@ export function httpPostAsync(url, username, password, payload, cb) {
   // Set authorization header with username and password
   xmlHttp.setRequestHeader(
     "Authorization",
-    "Basic " + btoa(username + ":" + password)
+    "Basic " + btoa(token + ":" + "")
   );
 
   xmlHttp.send(payload);
@@ -65,12 +95,10 @@ export function httpPostAsync(url, username, password, payload, cb) {
  * A simple http delete request wrapper. Enables usage of authentication.
  * 
  * @param {url}
- * @param {username}
- * @param {password}
  * @param {linkId}
  * @param {cb}
  */
-export function httpDeleteAsync(url, username, password, linkId, cb) {
+export function httpDeleteAsync(url, token, linkId, cb) {
   const xmlHttp = new XMLHttpRequest();
 
   xmlHttp.onreadystatechange = () => {
@@ -84,7 +112,7 @@ export function httpDeleteAsync(url, username, password, linkId, cb) {
   // Set authorization header with username and password
   xmlHttp.setRequestHeader(
     "Authorization",
-    "Basic " + btoa(username + ":" + password)
+    "Basic " + btoa(token + ":" + "")
   );
 
   xmlHttp.send(null);

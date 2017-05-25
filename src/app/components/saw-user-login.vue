@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import { httpGetAsync } from "../wrappers.js";
+  import { httpLogin } from "../wrappers.js";
   import { requestAuthTokenAddress } from "../config.js";
 
   export default {
@@ -33,7 +33,7 @@
         const password = this.$refs.password.value;
 
         // Request authentication token and save it to the local storage
-        httpGetAsync(
+        httpLogin(
           requestAuthTokenAddress,
           username,
           password,

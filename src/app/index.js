@@ -10,11 +10,7 @@ import "file-loader?name=index.html!./../index.html";
 
 import { httpGetAsync } from "./wrappers.js";
 
-import {
-  serverUsername,
-  serverPassword,
-  getListAddress
-} from "./config.js";
+import { getListAddress } from "./config.js";
 
 /**
  * The element that contains the user login form.
@@ -44,7 +40,7 @@ export const linkList = new Vue({
 });
 
 // Get the list of user saved links at start
-httpGetAsync(getListAddress, serverUsername, serverPassword, response => {
+httpGetAsync(getListAddress, localStorage.getItem("authToken"), response => {
   response.forEach(element => {
     linkList.items.push(element);
   });

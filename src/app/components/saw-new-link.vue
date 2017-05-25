@@ -8,11 +8,7 @@
 
 <script>
 import { httpPostAsync } from "./../wrappers.js";
-import {
-  serverUsername,
-  serverPassword,
-  postLinkAddress
-} from "./../config.js";
+import { postLinkAddress } from "./../config.js";
 import { linkList } from "./../index.js";
 
 export default {
@@ -27,8 +23,7 @@ export default {
       // Post new link object to server (async)
       httpPostAsync(
         postLinkAddress,
-        serverUsername,
-        serverPassword,
+        localStorage.getItem("authToken"),
         JSON.stringify(linkObject),
         response => {
           linkList.items.push(response.link);
