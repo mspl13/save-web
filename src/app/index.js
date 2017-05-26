@@ -39,9 +39,12 @@ export const linkList = new Vue({
   components: {"saw-link-element": ListItemComponent}
 });
 
-// Get the list of user saved links at start
-httpGetAsync(getListAddress, localStorage.getItem("authToken"), response => {
-  response.forEach(element => {
-    linkList.items.push(element);
+export function fetchLinkList() {
+  // Get the list of user saved links at start
+  httpGetAsync(getListAddress, localStorage.getItem("authToken"), response => {
+    response.forEach(element => {
+      linkList.items.push(element);
+    });
   });
-});
+}
+fetchLinkList();

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isLoggedIn()">
+  <div v-if="!isLoggedIn">
     <h3>Login:</h3>
     <form>
       <input type="text" placeholder="username" ref="username">
@@ -11,20 +11,37 @@
 </template>
 
 <script>
-  import { httpLogin } from "../wrappers.js";
-  import { requestAuthTokenAddress } from "../config.js";
+  import { httpLogin, httpGetAsync } from "./../wrappers.js";
+  import {
+    requestAuthTokenAddress,
+    authTokenValidationAddress } from "./../config.js";
+  import { fetchLinkList } from "./../index.js";
 
   export default {
     name: "saw-user-login",
-    methods: {
-      isLoggedIn: () => {
-        // Check if an auth token already exists
-        if(!localStorage.getItem("authToken")) {
-          return false;
+    data: () => {
+      return {
+        isLoggedIn: false
+      }
+    },
+    beforeMount: function() {
+      const token = localStorage.getItem("authToken");
+
+      // Authentication status should be false by default
+      // as long as not validated
+      this.$data.isLoggedIn = false;
+
+      // Check if an auth token already exists
+      if(!token) return;
+
+      // Check if existing token is still valid
+      httpGetAsync(authTokenValidationAddress, token, response => {
+        if(response.success) {
+          this.$data.isLoggedIn = true;
         }
-        // TODO: check if token is still valid
-        return true;
-      },
+      });
+    },
+    methods: {
       login: function(event) {
         if(event) event.preventDefault();
 
@@ -41,7 +58,10 @@
             if (response.token) {
               // Save auth token to local storage and force rerendering
               localStorage.setItem("authToken", response.token);
-              this.$forceUpdate();
+              this.$data.isLoggedIn = true;
+              this.$nextTick(() => {
+                fetchLinkList();
+              });
             } else {
               // TODO: clear password input field or do some useful stuff
               console.log("Sorry. Couldn't log in.");
