@@ -42,6 +42,11 @@ export const linkList = new Vue({
 export function fetchLinkList() {
   // Get the list of user saved links at start
   httpGetAsync(getListAddress, localStorage.getItem("authToken"), response => {
+    if(response.error) {
+      console.error("Error while fetching link list:", response.error);
+      return;
+    }
+
     response.forEach(element => {
       linkList.items.push(element);
     });

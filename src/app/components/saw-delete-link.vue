@@ -22,6 +22,11 @@
           localStorage.getItem("authToken"),
           id,
           response => {
+            if (response.error) {
+              console.error("Couldn't delete link. Got error:", response.error);
+              return;
+            }
+
             const linkObjectIndex = linkList.items.indexOf(
               linkList.items.find(linkObject => linkObject.id === id)
             );

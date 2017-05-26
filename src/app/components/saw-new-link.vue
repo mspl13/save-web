@@ -26,6 +26,11 @@ export default {
         localStorage.getItem("authToken"),
         JSON.stringify(linkObject),
         response => {
+          if (response.error) {
+            console.error("Couldn't post link. Got error:", response.error);
+            return;
+          }
+          
           linkList.items.push(response.link);
         }
       );

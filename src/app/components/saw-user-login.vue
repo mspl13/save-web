@@ -36,9 +36,13 @@
 
       // Check if existing token is still valid
       httpGetAsync(authTokenValidationAddress, token, response => {
-        if(response.success) {
-          this.$data.isLoggedIn = true;
+        if(response.error) {
+          localStorage.removeItem("authToken");
+          console.error("Authentication token is invalid. Please login again.");
+          return;
         }
+        
+        this.$data.isLoggedIn = true;
       });
     },
     methods: {
@@ -55,17 +59,17 @@
           username,
           password,
           response => {
-            if (response.token) {
-              // Save auth token to local storage and force rerendering
-              localStorage.setItem("authToken", response.token);
-              this.$data.isLoggedIn = true;
-              this.$nextTick(() => {
-                fetchLinkList();
-              });
-            } else {
-              // TODO: clear password input field or do some useful stuff
-              console.log("Sorry. Couldn't log in.");
+            if (response.error) {
+              console.error("Couldn't login. Got error:", response.error);
+              return;
             }
+
+            // Save auth token to local storage and force rerendering
+            localStorage.setItem("authToken", response.token);
+            this.$data.isLoggedIn = true;
+            this.$nextTick(() => {
+              fetchLinkList();
+            });
           }
         );
       }
