@@ -8,6 +8,9 @@
     </form>
     <hr>
   </div>
+  <div v-else>
+    <button v-on:click="logout($event)">Logout</button>
+  </div>
 </template>
 
 <script>
@@ -15,7 +18,7 @@
   import {
     requestAuthTokenAddress,
     authTokenValidationAddress } from "./../config.js";
-  import { fetchLinkList } from "./../index.js";
+  import { linkList, fetchLinkList } from "./../index.js";
 
   export default {
     name: "saw-user-login",
@@ -72,6 +75,16 @@
             });
           }
         );
+      },
+      logout: function(event) {
+        if (event) event.preventDefault();
+
+        // TODO: make current authentication token invalid when API exists
+
+        // Remove auth token from local storage and reload elements
+        localStorage.removeItem("authToken");
+        this.$data.isLoggedIn = false;
+        linkList.items = [];
       }
     }
   }
