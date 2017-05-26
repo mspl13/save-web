@@ -6,10 +6,9 @@
       <input type="password" placeholder="password" ref="password">
       <button v-on:click="login($event)">Login</button>
     </form>
-    <hr>
   </div>
-  <div v-else>
-    <button v-on:click="logout($event)">Logout</button>
+  <div class="flex" v-else>
+    <button id="saw-logout__button" v-on:click="logout($event)">Logout</button>
   </div>
 </template>
 
@@ -18,7 +17,7 @@
   import {
     requestAuthTokenAddress,
     authTokenValidationAddress } from "./../config.js";
-  import { linkList, fetchLinkList } from "./../index.js";
+  import { sawBus, linkList, fetchLinkList } from "./../index.js";
 
   export default {
     name: "saw-user-login",
@@ -70,6 +69,11 @@
             // Save auth token to local storage and force rerendering
             localStorage.setItem("authToken", response.token);
             this.$data.isLoggedIn = true;
+
+            // Emit event that user logged in successfully
+            sawBus.$emit("logIn");
+
+            // TODO: bind this to the new data bus with an event
             this.$nextTick(() => {
               fetchLinkList();
             });
@@ -84,11 +88,23 @@
         // Remove auth token from local storage and reload elements
         localStorage.removeItem("authToken");
         this.$data.isLoggedIn = false;
+
+        // Emit event that user logged out
+        sawBus.$emit("logOut");
+
+        // Remove all link items from the list
         linkList.items = [];
       }
     }
   }
 </script>
 
-<style>
+<style scoped>
+  .flex {
+    display: flex;
+  }
+
+  #saw-logout__button {
+    margin-left: auto;
+  }
 </style>

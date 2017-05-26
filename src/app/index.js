@@ -13,6 +13,11 @@ import { httpGetAsync } from "./wrappers.js";
 import { getListAddress } from "./config.js";
 
 /**
+ * A simple bus to allow for non parent-child communication.
+ */
+export const sawBus = new Vue();
+
+/**
  * The element that contains the user login form.
  */
 // eslint-disable-next-line no-unused-vars
