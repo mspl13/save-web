@@ -16,9 +16,12 @@ export function httpGetAsync(url, token, cb) {
   xmlHttp.onreadystatechange = () => {
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
       cb(JSON.parse(xmlHttp.responseText));
-    } else if (xmlHttp.readyState === 4) {
-      cb({"error": xmlHttp.status});
     }
+  };
+
+  // Error handling
+  xmlHttp.onerror = error => {
+    cb({ "error": error });
   };
 
   xmlHttp.open("GET", url, true);
@@ -48,9 +51,12 @@ export function httpLogin(url, username, password, cb) {
   xmlHttp.onreadystatechange = () => {
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
       cb(JSON.parse(xmlHttp.responseText));
-    } else if (xmlHttp.readyState === 4) {
-      cb({ "error": xmlHttp.status });
     }
+  };
+
+  // Error handling
+  xmlHttp.onerror = error => {
+    cb({ "error": error });
   };
 
   xmlHttp.open("GET", url, true);
@@ -79,9 +85,12 @@ export function httpPostAsync(url, token, payload, cb) {
   xmlHttp.onreadystatechange = () => {
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
       cb(JSON.parse(xmlHttp.responseText));
-    } else if (xmlHttp.readyState === 4) {
-      cb({ "error": xmlHttp.status });
     }
+  };
+
+  // Error handling
+  xmlHttp.onerror = error => {
+    cb({ "error": error });
   };
 
   xmlHttp.open("POST", url, true);
@@ -110,9 +119,12 @@ export function httpDeleteAsync(url, token, linkId, cb) {
   xmlHttp.onreadystatechange = () => {
     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
       cb(JSON.parse(xmlHttp.responseText));
-    } else if (xmlHttp.readyState === 4) {
-      cb({ "error": xmlHttp.status });
     }
+  };
+
+  // Error handling
+  xmlHttp.onerror = error => {
+    cb({ "error": error });
   };
 
   xmlHttp.open("DELETE", url + "/" + linkId, true);
