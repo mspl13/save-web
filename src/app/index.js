@@ -57,4 +57,3 @@ export function fetchLinkList() {
     });
   });
 }
-fetchLinkList();

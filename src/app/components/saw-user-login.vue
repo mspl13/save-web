@@ -45,6 +45,7 @@
         }
         
         this.$data.isLoggedIn = true;
+        fetchLinkList();
       });
     },
     methods: {
