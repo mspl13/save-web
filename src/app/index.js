@@ -1,7 +1,8 @@
 import Vue from "vue";
 
-import NewLink from "./components/saw-new-link.vue";
-import ListItem from "./components/saw-link-element.vue";
+import NewLinkComponent from "./components/saw-new-link.vue";
+import ListItemComponent from "./components/saw-link-element.vue";
+import UserLoginComponent from "./components/saw-user-login.vue";
 
 // Importing the main css files
 import "./stylesheets/main.scss";
@@ -9,11 +10,21 @@ import "file-loader?name=index.html!./../index.html";
 
 import { httpGetAsync } from "./wrappers.js";
 
-import {
-  serverUsername,
-  serverPassword,
-  getListAddress
-} from "./config.js";
+import { getListAddress } from "./config.js";
+
+/**
+ * A simple bus to allow for non parent-child communication.
+ */
+export const sawBus = new Vue();
+
+/**
+ * The element that contains the user login form.
+ */
+// eslint-disable-next-line no-unused-vars
+const userLogin = new Vue({
+  el: "#user-login",
+  components: {"saw-user-login": UserLoginComponent}
+});
 
 /**
  * The element for a new link and it's annotation.
@@ -21,7 +32,7 @@ import {
 // eslint-disable-next-line no-unused-vars
 const newLink = new Vue({
   el: "#new-link",
-  components: {"saw-new-link": NewLink}
+  components: {"saw-new-link": NewLinkComponent}
 });
 
 /**
@@ -30,12 +41,19 @@ const newLink = new Vue({
 export const linkList = new Vue({
   el: "#link-list",
   data: {items: []},
-  components: {"saw-link-element": ListItem}
+  components: {"saw-link-element": ListItemComponent}
 });
 
-// Get the list of user saved links at start
-httpGetAsync(getListAddress, serverUsername, serverPassword, response => {
-  response.forEach(element => {
-    linkList.items.push(element);
+export function fetchLinkList() {
+  // Get the list of user saved links at start
+  httpGetAsync(getListAddress, localStorage.getItem("authToken"), response => {
+    if(response.error) {
+      console.error("Error while fetching link list:", response.error);
+      return;
+    }
+
+    response.forEach(element => {
+      linkList.items.push(element);
+    });
   });
-});
+}

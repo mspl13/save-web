@@ -4,11 +4,7 @@
 
 <script>
   import { httpDeleteAsync } from "./../wrappers.js";
-  import {
-    serverUsername,
-    serverPassword,
-    deleteLinkAdress
-  } from "./../config.js";
+  import { deleteLinkAddress } from "./../config.js";
   import { linkList } from "./../index.js";
 
   export default {
@@ -22,11 +18,15 @@
     methods: {
       deleteLink: id => {
         httpDeleteAsync(
-          deleteLinkAdress,
-          serverUsername,
-          serverPassword,
+          deleteLinkAddress,
+          localStorage.getItem("authToken"),
           id,
           response => {
+            if (response.error) {
+              console.error("Couldn't delete link. Got error:", response.error);
+              return;
+            }
+
             const linkObjectIndex = linkList.items.indexOf(
               linkList.items.find(linkObject => linkObject.id === id)
             );
