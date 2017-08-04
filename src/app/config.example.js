@@ -3,7 +3,10 @@
  */
 
 // Server variables
-export const serverAddress = "http://127.0.0.1:1337/save/api";
+export const serverBaseAddress = "http://127.0.0.1:1337";
+export const prefix = "/save/api";
+
+export const serverAddress = serverBaseAddress + prefix;
 export const getListAddress = serverAddress + "/links";
 export const postLinkAddress = serverAddress + "/save";
 export const deleteLinkAddress = serverAddress + "/links";

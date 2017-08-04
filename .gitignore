@@ -61,3 +61,4 @@ typings/
 
 
 dist/
+src/app/config.js

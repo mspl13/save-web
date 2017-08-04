@@ -1,3 +1,4 @@
 #==Node
 
 dist/
+src/app/config.js

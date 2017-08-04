@@ -19,8 +19,12 @@ $ cd save-web
 ```shell
 $ yarn install
 ```
-3. Specify the address of your backend server in the `app/config.js` file.
-4. Start the development server.
+3. Copy the example config file to `config.js`.
+```shell
+cp src/app/config.example.js src/app/config.js
+```
+4. Specify the address of your backend server in the newly created `src/app/config.js` file.
+5. Start the development server.
 ```shell
 $ yarn start
 ```
