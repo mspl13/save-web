@@ -40,10 +40,7 @@ module.exports = {
         use: [
           // Convert to ES2015
           {
-            loader: "babel-loader",
-            query: {
-              presets: ["es2015"]
-            }
+            loader: "babel-loader"
           }
         ]
       }
