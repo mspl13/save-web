@@ -2,7 +2,6 @@
   <li>
     <a :href="linkitem.url">{{ linkitem.url }}</a>
     <p>{{ linkitem.annotation }}</p>
-    <p>({{ linkitem.id }})</p>
     <saw-delete-link :link-id="linkitem.id"></saw-delete-link>
   </li>
 </template>
@@ -27,6 +26,12 @@
 <style scoped>
 li {
   margin: 5px 0;
+  padding: 10px;
+
   border: 1px solid black;
+}
+
+a {
+  cursor: pointer;
 }
 </style>

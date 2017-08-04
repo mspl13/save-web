@@ -3,9 +3,10 @@
  */
 
 // Server variables
-export const serverAddress = "http://127.0.0.1:1337";
-export const getListAddress = serverAddress + "/save/api/links";
-export const postLinkAddress = serverAddress + "/save/api/save";
-export const deleteLinkAddress = serverAddress + "/save/api/links";
-export const requestAuthTokenAddress = serverAddress + "/save/api/token";
-export const authTokenValidationAddress = serverAddress + "/save/api/token/validate";
+export const serverAddress = "http://127.0.0.1:1337/save/api";
+export const getListAddress = serverAddress + "/links";
+export const postLinkAddress = serverAddress + "/save";
+export const deleteLinkAddress = serverAddress + "/links";
+export const requestAuthTokenAddress = serverAddress + "/token";
+export const authTokenValidationAddress = serverAddress + "/token/validate";
+export const authTokenInvalidationAddress = serverAddress + "/token/invalidate";

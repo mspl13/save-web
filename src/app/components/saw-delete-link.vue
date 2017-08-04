@@ -43,10 +43,15 @@
 
 <style scoped>
   p {
+    margin: 0;
+
+    display: inline-block;
+
+    color: red;
     cursor: pointer;
   }
 
   p:hover {
-    color: blue;
+    text-decoration: underline;
   }
 </style>
