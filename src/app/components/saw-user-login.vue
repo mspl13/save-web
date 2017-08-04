@@ -13,10 +13,11 @@
 </template>
 
 <script>
-  import { httpLogin, httpGetAsync } from "./../wrappers.js";
+  import { httpLogin, httpLogout, httpGetAsync } from "./../wrappers.js";
   import {
     requestAuthTokenAddress,
-    authTokenValidationAddress } from "./../config.js";
+    authTokenValidationAddress,
+    authTokenInvalidationAddress } from "./../config.js";
   import { sawBus, linkList, fetchLinkList } from "./../index.js";
 
   export default {
@@ -45,6 +46,9 @@
         }
         
         this.$data.isLoggedIn = true;
+
+        // Emit event that user logged in successfully
+        sawBus.$emit("logIn");
         fetchLinkList();
       });
     },
@@ -73,28 +77,36 @@
 
             // Emit event that user logged in successfully
             sawBus.$emit("logIn");
-
-            // TODO: bind this to the new data bus with an event
-            this.$nextTick(() => {
-              fetchLinkList();
-            });
+            fetchLinkList();
           }
         );
       },
       logout: function(event) {
         if (event) event.preventDefault();
 
-        // TODO: make current authentication token invalid when API exists
+        const token = localStorage.getItem("authToken");
 
-        // Remove auth token from local storage and reload elements
-        localStorage.removeItem("authToken");
-        this.$data.isLoggedIn = false;
+        // Request invalidation of auth token/logout
+        httpLogout(
+          authTokenInvalidationAddress,
+          token,
+          response => {
+            if (response.error) {
+              console.error("Couldn't logout. Got error:", response.error);
+              return;
+            }
 
-        // Emit event that user logged out
-        sawBus.$emit("logOut");
+            // Remove auth token from local storage and reload elements
+            localStorage.removeItem("authToken");
+            this.$data.isLoggedIn = false;
 
-        // Remove all link items from the list
-        linkList.items = [];
+            // Emit event that user logged out
+            sawBus.$emit("logOut");
+
+            // Remove all link items from the list
+            linkList.items = [];
+          }
+        );
       }
     }
   }

@@ -1,5 +1,3 @@
-// TODO: refactor wrapper, they all use a lot of common code
-
 /**
  * A simple http get request wrapper. Enables usage of authentication.
  * http://stackoverflow.com/a/4033310/2952875
@@ -65,6 +63,31 @@ export function httpLogin(url, username, password, cb) {
   xmlHttp.setRequestHeader(
     "Authorization",
     "Basic " + btoa(username + ":" + password)
+  );
+
+  xmlHttp.send(null);
+}
+
+export function httpLogout(url, token, cb) {
+  const xmlHttp = new XMLHttpRequest();
+
+  xmlHttp.onreadystatechange = () => {
+    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+      cb(JSON.parse(xmlHttp.responseText));
+    }
+  };
+
+  // Error handling
+  xmlHttp.onerror = error => {
+    cb({ "error": error });
+  };
+
+  xmlHttp.open("DELETE", url, true);
+
+  // Set authorization header with username and password
+  xmlHttp.setRequestHeader(
+    "Authorization",
+    "Basic " + btoa(token + ":" + "")
   );
 
   xmlHttp.send(null);
