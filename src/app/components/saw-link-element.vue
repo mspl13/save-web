@@ -1,6 +1,6 @@
 <template>
   <li>
-    <a :href="linkitem.url">{{ linkitem.url }}</a>
+    <a :href="linkitem.url" target="_blank">{{ linkitem.url }}</a>
     <p>{{ linkitem.annotation }}</p>
     <saw-delete-link :link-id="linkitem.id"></saw-delete-link>
   </li>
