@@ -33,9 +33,11 @@ export default {
   },
   methods: {
     saveNewLink: () => {
+      const urlInput = document.getElementById("linkInput");
+      const annotationInput = document.getElementById("annotationInput");
       const linkObject = {
-        "url": document.getElementById("linkInput").value,
-        "annotation": document.getElementById("annotationInput").value
+        "url": urlInput.value,
+        "annotation": annotationInput.value
       };
 
       // Post new link object to server (async)
@@ -49,7 +51,12 @@ export default {
             return;
           }
           
+          // Add links to link list
           linkList.items.push(response.link);
+
+          // Clear inputs
+          urlInput.value = "";
+          annotationInput.value = "";
         }
       );
     }
