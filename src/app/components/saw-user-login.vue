@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isLoggedIn">
+  <div v-if="isLoggedIn === false">
     <h3>Login:</h3>
     <form>
       <input type="text" placeholder="username" ref="username">
@@ -24,18 +24,20 @@
     name: "saw-user-login",
     data: () => {
       return {
-        isLoggedIn: false
+        isLoggedIn: null
       }
     },
     beforeMount: function() {
       const token = localStorage.getItem("authToken");
 
-      // Authentication status should be false by default
-      // as long as not validated
-      this.$data.isLoggedIn = false;
-
       // Check if an auth token already exists
-      if(!token) return;
+      if(!token) {
+        // User is not logged in
+        this.$data.isLoggedIn = false;
+        // Hiding loading indicator
+        document.getElementById("loading-indicator").style.display = "none";
+        return;
+      }
 
       // Check if existing token is still valid
       httpGetAsync(authTokenValidationAddress, token, response => {
@@ -46,6 +48,9 @@
         }
         
         this.$data.isLoggedIn = true;
+
+        // Hiding loading indicator
+        document.getElementById("loading-indicator").style.display = "none";
 
         // Emit event that user logged in successfully
         sawBus.$emit("logIn");
