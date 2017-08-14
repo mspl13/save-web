@@ -36,7 +36,7 @@ module.exports = {
       // JavaScript Files
       {
         test: /\.js$/,
-        exclude: "/node_modules/",
+        exclude: /node_modules/,
         use: [
           // Convert to ES2015
           {

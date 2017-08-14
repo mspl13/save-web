@@ -6,6 +6,7 @@ import UserLoginComponent from "./components/saw-user-login.vue";
 
 // Importing the main css files
 import "./stylesheets/main.scss";
+import "file-loader?name=favicon.png!./../favicon.png";
 import "file-loader?name=index.html!./../index.html";
 
 import { httpGetAsync } from "./wrappers.js";
