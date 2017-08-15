@@ -1,8 +1,8 @@
 <template>
   <li>
-    <a :href="linkitem.url" target="_blank">{{ linkitem.url }}</a>
-    <p>{{ linkitem.annotation }}</p>
-    <saw-delete-link :link-id="linkitem.id"></saw-delete-link>
+    <a :href="linkItem.url" target="_blank">{{ linkItem.url }}</a>
+    <p>{{ linkItem.annotation }}</p>
+    <saw-delete-link :link-id="linkItem.id"></saw-delete-link>
   </li>
 </template>
 
@@ -12,7 +12,7 @@
   export default {
     name: "saw-link-element",
     props: {
-      linkitem: {
+      linkItem: {
         type: Object,
         required: true
       }
