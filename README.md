@@ -28,3 +28,9 @@ cp src/app/config.example.js src/app/config.js
 ```shell
 $ yarn start
 ```
+
+## Testing
+To run the [karma](https://karma-runner.github.io/1.0/index.html) test suite simply run the test script.
+```shell
+$ yarn test
+```

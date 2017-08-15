@@ -7,9 +7,10 @@
   "author": "mspl13",
   "license": "MIT",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --config webpack.dev.conf.js --content-base ./dist --progress",
-    "build": "node_modules/.bin/webpack --config webpack.dev.conf.js",
-    "build:prod": "node_modules/.bin/webpack --config webpack.conf.js -p"
+    "start": "webpack-dev-server --config webpack.dev.conf.js --content-base ./dist --progress",
+    "test": "karma start karma.conf.js",
+    "build": "webpack --config webpack.dev.conf.js",
+    "build:prod": "webpack --config webpack.conf.js -p"
   },
   "dependencies": {
     "babel-core": "^6.25.0",
