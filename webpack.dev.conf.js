@@ -3,7 +3,6 @@ const webpack = require("webpack");
 
 module.exports = {
   entry: {
-    vendor: ["vue"],
     app: "./src/app/index.js"
   },
   output: {
@@ -39,12 +38,8 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      "process.env.NODE_ENV": JSON.stringify("production")
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: "vendor",
-      minChunks: Infinity
+      "process.env.NODE_ENV": JSON.stringify("development")
     })
   ],
-  resolve: {alias: {"vue$": "vue/dist/vue.min.js"}}
+  resolve: {alias: {"vue$": "vue/dist/vue.js"}}
 };
