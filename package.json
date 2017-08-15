@@ -7,7 +7,7 @@
   "author": "mspl13",
   "license": "MIT",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --config webpack.dev.conf.js --content-base ./dist",
+    "start": "node_modules/.bin/webpack-dev-server --config webpack.dev.conf.js --content-base ./dist --progress",
     "build": "node_modules/.bin/webpack --config webpack.dev.conf.js",
     "build:prod": "node_modules/.bin/webpack --config webpack.conf.js -p"
   },
