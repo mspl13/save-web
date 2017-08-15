@@ -12,7 +12,7 @@
   export default {
     name: "saw-link-element",
     props: {
-      linkitem: {
+      linkItem: {
         type: Object,
         required: true
       }
