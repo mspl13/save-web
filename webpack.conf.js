@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
   entry: {
@@ -15,15 +16,13 @@ module.exports = {
       {
         // Sass files
         test: /\.scss$/,
-        use: [
-          {
-            loader: "style-loader" // Creates style nodes from JS strings
-          }, {
-            loader: "css-loader" // Translates CSS into CommonJS
-          }, {
-            loader: "sass-loader" // Compiles Sass to CSS
-          }
-        ]
+        use: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: [
+            "css-loader", // Translates CSS into CommonJS
+            "sass-loader" // Compiles Sass to CSS
+          ]
+        })
       },
       {
         test: /\.vue$/,
@@ -44,7 +43,8 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
       minChunks: Infinity
-    })
+    }),
+    new ExtractTextPlugin("styles.css")
   ],
   resolve: {alias: {"vue$": "vue/dist/vue.min.js"}}
 };
