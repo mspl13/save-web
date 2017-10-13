@@ -19,11 +19,14 @@ $ cd save-web
 ```shell
 $ yarn install
 ```
-3. Copy the example config file to `config.js`.
+3. Create a `config.local.js` file in `src/app`.
 ```shell
-cp src/app/config.example.js src/app/config.js
+touch src/app/config.local.js
 ```
-4. Specify the address of your backend server in the newly created `src/app/config.js` file.
+4. Specify the address of your backend server in the newly created `src/app/config.local.js` file and export the variable (it will be imported in the acutal config file).
+```javascript
+export const serverBaseURL = "https://url.to.backend";
+```
 5. Start the development server.
 ```shell
 $ yarn start
