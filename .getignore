@@ -1,4 +1,4 @@
 #==Node
 
 dist/
-src/app/config.js
+src/app/config.local.js
