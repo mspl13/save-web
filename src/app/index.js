@@ -11,7 +11,9 @@ import "file-loader?name=index.html!./../index.html";
 
 import { httpGetAsync } from "./wrappers.js";
 
-import { getListAddress } from "./config.js";
+import { getListLocation } from "./config.js";
+
+import { getBackendURL } from "./util.js";
 
 /**
  * A simple bus to allow for non parent-child communication.
@@ -47,14 +49,18 @@ export const linkList = new Vue({
 
 export function fetchLinkList() {
   // Get the list of user saved links at start
-  httpGetAsync(getListAddress, localStorage.getItem("authToken"), response => {
-    if(response.error) {
-      console.error("Error while fetching link list:", response.error);
-      return;
-    }
+  httpGetAsync(
+    getBackendURL() + getListLocation,
+    localStorage.getItem("authToken"),
+    response => {
+      if(response.error) {
+        console.error("Error while fetching link list:", response.error);
+        return;
+      }
 
-    response.forEach(element => {
-      linkList.items.push(element);
-    });
-  });
+      response.forEach(element => {
+        linkList.items.push(element);
+      });
+    }
+  );
 }

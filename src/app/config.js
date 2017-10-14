@@ -2,13 +2,7 @@
  * A sperate file that contains all the configurations and options.
  */
 
-import * as configLocal from "./config.local.js";
-
-// Server variables
-export const serverBaseURL = configLocal.serverBaseURL;
-export const prefix = "/save/api";
-
-export const serverURL = serverBaseURL + prefix;
+// API locations
 export const getListLocation = "/links";
 export const postLinkLocation = "/save";
 export const deleteLinkLocation = "/links";
