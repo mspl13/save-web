@@ -18,7 +18,6 @@
 <script>
   import { httpLogin, httpLogout, httpGetAsync } from "./../wrappers.js";
   import {
-    serverURL,
     requestAuthTokenLocation,
     authTokenValidationLocation,
     authTokenInvalidationLocation } from "./../config.js";
