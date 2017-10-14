@@ -4,7 +4,8 @@
 
 <script>
   import { httpDeleteAsync } from "./../wrappers.js";
-  import { deleteLinkAddress } from "./../config.js";
+  import { deleteLinkLocation } from "./../config.js";
+  import { getBackendURL } from "../util.js";
   import { linkList } from "./../index.js";
 
   export default {
@@ -18,7 +19,7 @@
     methods: {
       deleteLink: id => {
         httpDeleteAsync(
-          deleteLinkAddress,
+          getBackendURL() + deleteLinkLocation,
           localStorage.getItem("authToken"),
           id,
           response => {

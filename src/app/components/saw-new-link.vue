@@ -8,8 +8,9 @@
 
 <script>
 import { httpPostAsync } from "./../wrappers.js";
-import { postLinkAddress } from "./../config.js";
+import { postLinkLocation } from "./../config.js";
 import { sawBus, linkList } from "./../index.js";
+import { getBackendURL } from "../util.js";
 
 export default {
   name: "saw-new-link",
@@ -42,7 +43,7 @@ export default {
 
       // Post new link object to server (async)
       httpPostAsync(
-        postLinkAddress,
+        getBackendURL() + postLinkLocation,
         localStorage.getItem("authToken"),
         JSON.stringify(linkObject),
         response => {
